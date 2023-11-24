@@ -81,7 +81,6 @@ public class CategoryService {
         catDto.setId(cat.getId());
         catDto.setName(cat.getName());
         catDto.setDescription(cat.getDescription());
-        catDto.setItems(cat.getItems());
 
         return catDto;
     }
@@ -91,7 +90,6 @@ public class CategoryService {
         cat.setId(catDto.getId());
         cat.setName(catDto.getName());
         cat.setDescription(catDto.getDescription());
-        cat.setItems(catDto.getItems());
 
         return cat;
     }

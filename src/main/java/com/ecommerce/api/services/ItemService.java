@@ -34,7 +34,6 @@ public class ItemService {
                 itemDto.setCategory(catOp.get());
             }
             Item item =itemRepository.save(dtoToItem(itemDto));
-            item.getCategory().setItems(null);
             return itemToDto(item);
         }
     }
@@ -44,13 +43,11 @@ public class ItemService {
             throw new ItemNotFoundException("This item not found !");
         }else{
             Item it =opItem.get();
-            it.getCategory().setItems(null);
             return itemToDto(it);
         }
     }
     public List<ItemDto> getAllItems(){
         List<Item> items = itemRepository.findAll();
-       // items.forEach(p -> p.getCategory().setItems(null));
         return items.stream().map(p ->itemToDto(p)).collect(Collectors.toList());
     }
     public ItemDto updateItem(Long id , ItemDto itemDto){
@@ -78,7 +75,7 @@ public class ItemService {
 
             }
             Item it =itemRepository.save(item);
-            it.getCategory().setItems(null);
+
             return itemToDto(it);
         }
 
