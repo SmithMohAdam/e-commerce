@@ -22,7 +22,7 @@ public class ItemController {
     @PostMapping("/item")
     public ResponseEntity<ItemDto> createItem(@RequestBody ItemDto itemDto){
         System.out.println(itemDto.toString());
-        return ResponseEntity.ok().body(itemService.createitem(itemDto));
+        return ResponseEntity.ok().body(itemService.createItem(itemDto));
     }
     @GetMapping("/item/{id}")
     public ResponseEntity<ItemDto> getItem(@PathVariable Long id){
@@ -37,4 +37,10 @@ public class ItemController {
      public ResponseEntity<String> deleteItem(@PathVariable Long id){
         return ResponseEntity.ok().body( itemService.deleteItem(id));
     }
+
+    @GetMapping("/item/{id}/category")
+    public ResponseEntity<List<ItemDto>> getItemByCategory(@PathVariable Long id){
+        return ResponseEntity.ok().body(itemService.getItemsByCategory(id));
+    }
+
 }

@@ -10,6 +10,7 @@ import com.ecommerce.api.repositores.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ public class ItemService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public ItemDto createitem(ItemDto itemDto){
+    public ItemDto createItem(ItemDto itemDto){
 
         Optional<Item> opItem = findItem(itemDto.getId());
         if(opItem.isPresent()){
@@ -33,9 +34,20 @@ public class ItemService {
             if(catOp.isPresent()){
                 itemDto.setCategory(catOp.get());
             }
+
             Item item =itemRepository.save(dtoToItem(itemDto));
             return itemToDto(item);
         }
+    }
+
+    public List<ItemDto> getItemsByCategory(Long categoryId){
+        Optional<Category> catOp =findCategory(categoryId);
+        if (!catOp.isPresent()){
+            throw new CategoryNotFoundException("This category not found");
+        }
+        List<Item> its =itemRepository.findByCategory(catOp.get());
+        return its.stream().map(p -> itemToDto(p)).collect(Collectors.toList());
+
     }
     public ItemDto getItem(Long id){
         Optional<Item> opItem = findItem(id);

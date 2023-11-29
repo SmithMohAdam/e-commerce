@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -14,18 +15,18 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Item {
+@Table(name = "UserOrder")
+public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private double price;
-    private String description;
-    private int quantity;
+    private Long orderId;
+
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "customer_id")
     @JsonIgnore
-    private Category category;
+    private Customer customer;
+
+    private Date orderDate;
+    private String deliveryAddress;
 
 
 }
